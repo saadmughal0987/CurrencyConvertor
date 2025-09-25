@@ -2,7 +2,7 @@ import React from 'react';
 import InputBox from './InputBox';
 import bgImage from '../assets/bg.png';
 
-function Hero({ amount, fromCurrency, toCurrency, onAmountChange, onFromCurrencyChange, onToCurrencyChange, onSwap, currencyInfo, options }) {
+function Hero({ amount, fromCurrency, toCurrency, onAmountChange, onFromCurrencyChange, onToCurrencyChange, onSwap, onConvert, options, convertedAmount }) {
   return (
     <section id="home" className="relative py-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
       <div
@@ -28,36 +28,46 @@ function Hero({ amount, fromCurrency, toCurrency, onAmountChange, onFromCurrency
         <div className="max-w-3xl mx-auto">
           <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/20">
             <h3 className="text-3xl font-bold text-center text-gray-900 mb-8">Currency Converter</h3>
-            <div className="space-y-6">
-              <InputBox
-                label="From"
-                amount={amount}
-                currencyOptions={options}
-                onCurrencyChange={(currency) => onFromCurrencyChange(currency)}
-                selectedCurrency={fromCurrency}
-                onAmountChange={(amount) => onAmountChange(amount)}
-              />
-              <div className="flex justify-center">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                onConvert();
+              }}
+            >
+              <div className="space-y-6">
+                <InputBox
+                  label="From"
+                  amount={amount}
+                  currencyOptions={options}
+                  onCurrencyChange={(currency) => onFromCurrencyChange(currency)}
+                  selectedCurrency={fromCurrency}
+                  onAmountChange={(amount) => onAmountChange(amount)}
+                />
+                <div className="flex justify-center">
+                  <button
+                    type="button"
+                    className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all duration-200 transform hover:scale-110"
+                    onClick={onSwap}
+                  >
+                    ⇅
+                  </button>
+                </div>
+                <InputBox
+                  label="To"
+                  amount={convertedAmount}
+                  currencyOptions={options}
+                  onCurrencyChange={(currency) => onToCurrencyChange(currency)}
+                  selectedCurrency={toCurrency}
+                  amountDisabled
+                />
                 <button
-                  type="button"
-                  className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all duration-200 transform hover:scale-110"
-                  onClick={onSwap}
+                  type="submit"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 shadow-lg"
                 >
-                  ⇅
+                  Convert {fromCurrency.toUpperCase()} to {toCurrency.toUpperCase()}
                 </button>
               </div>
-              <InputBox
-                label="To"
-                amount={amount * (currencyInfo[toCurrency] || 0)}
-                currencyOptions={options}
-                onCurrencyChange={(currency) => onToCurrencyChange(currency)}
-                selectedCurrency={toCurrency}
-                amountDisabled
-              />
-              <div className="text-center text-sm text-gray-600 bg-gray-50 rounded-lg py-2 px-4">
-                Conversion happens automatically when you change currencies or amounts
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
