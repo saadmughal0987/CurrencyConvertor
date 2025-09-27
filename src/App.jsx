@@ -23,7 +23,7 @@ function App() {
   };
 
   const convert = () => {
-    setConvertedAmount(amount * currencyInfo[toCurrency]);
+    setConvertedAmount(parseFloat((amount * currencyInfo[toCurrency]).toFixed(2)));
   };
 
 
@@ -36,6 +36,7 @@ function App() {
         fromCurrency={fromCurrency}
         toCurrency={toCurrency}
         convertedAmount={convertedAmount}
+        rate={currencyInfo[toCurrency]}
         onAmountChange={setAmount}
         onFromCurrencyChange={setFromCurrency}
         onToCurrencyChange={setToCurrency}

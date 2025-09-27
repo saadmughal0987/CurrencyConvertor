@@ -2,7 +2,7 @@ import React from 'react';
 import InputBox from './InputBox';
 import bgImage from '../assets/bg.png';
 
-function Hero({ amount, fromCurrency, toCurrency, onAmountChange, onFromCurrencyChange, onToCurrencyChange, onSwap, onConvert, options, convertedAmount }) {
+function Hero({ amount, fromCurrency, toCurrency, onAmountChange, onFromCurrencyChange, onToCurrencyChange, onSwap, onConvert, options, convertedAmount, rate }) {
   return (
     <section id="home" className="relative py-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
       <div
@@ -24,7 +24,6 @@ function Hero({ amount, fromCurrency, toCurrency, onAmountChange, onFromCurrency
           </p>
         </div>
 
-        {/* Currency Converter */}
         <div className="max-w-3xl mx-auto">
           <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/20">
             <h3 className="text-3xl font-bold text-center text-gray-900 mb-8">Currency Converter</h3>
@@ -66,6 +65,9 @@ function Hero({ amount, fromCurrency, toCurrency, onAmountChange, onFromCurrency
                 >
                   Convert {fromCurrency.toUpperCase()} to {toCurrency.toUpperCase()}
                 </button>
+                <p className="text-center text-gray-600 mt-4">
+                  Exchange Rate: 1 {fromCurrency.toUpperCase()} = {rate ? rate.toFixed(2) : 'Loading...'} {toCurrency.toUpperCase()}
+                </p>
               </div>
             </form>
           </div>

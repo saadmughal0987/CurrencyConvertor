@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const scrollToSection = (sectionId) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -18,17 +20,25 @@ function Header() {
             <h1 className="ml-3 text-2xl font-bold text-white">CurrencyPro</h1>
           </div>
           <nav className="hidden md:flex space-x-8">
-            <button onClick={() => scrollToSection('home')} className="text-white/90 hover:text-white font-medium transition-colors">Home</button>
-            <button onClick={() => scrollToSection('features')} className="text-white/90 hover:text-white font-medium transition-colors">Features</button>
-            <button onClick={() => scrollToSection('how-to-use')} className="text-white/90 hover:text-white font-medium transition-colors">How to Use</button>
-            <button onClick={() => scrollToSection('contact')} className="text-white/90 hover:text-white font-medium transition-colors">Contact</button>
+            <button onClick={() => scrollToSection('home')} className="text-white/90 hover:text-white hover:bg-white/20 font-medium transition-colors">Home</button>
+            <button onClick={() => scrollToSection('features')} className="text-white/90 hover:text-white hover:bg-white/20 font-medium transition-colors">Features</button>
+            <button onClick={() => scrollToSection('how-to-use')} className="text-white/90 hover:text-white hover:bg-white/20 font-medium transition-colors">How to Use</button>
+            <button onClick={() => scrollToSection('contact')} className="text-white/90 hover:text-white hover:bg-white/20 font-medium transition-colors">Contact</button>
           </nav>
           <div className="md:hidden">
-            <button className="text-white hover:text-blue-300">
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white hover:text-blue-300">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
+          </div>
+        </div>
+        <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'} bg-white/10 backdrop-blur-md border-t border-white/20 transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+          <div className="flex flex-col space-y-4 py-4 px-4">
+            <button onClick={() => { scrollToSection('home'); setIsMenuOpen(false); }} className="text-white/90 hover:text-white hover:bg-white/20 font-medium transition-colors text-center py-2 rounded">Home</button>
+            <button onClick={() => { scrollToSection('features'); setIsMenuOpen(false); }} className="text-white/90 hover:text-white hover:bg-white/20 font-medium transition-colors text-center py-2 rounded">Features</button>
+            <button onClick={() => { scrollToSection('how-to-use'); setIsMenuOpen(false); }} className="text-white/90 hover:text-white hover:bg-white/20 font-medium transition-colors text-center py-2 rounded">How to Use</button>
+            <button onClick={() => { scrollToSection('contact'); setIsMenuOpen(false); }} className="text-white/90 hover:text-white hover:bg-white/20 font-medium transition-colors text-center py-2 rounded">Contact</button>
           </div>
         </div>
       </div>
